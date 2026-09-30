@@ -15,8 +15,6 @@ Group Number: 4
 
 Software System: pending...
 
-# Team Contract
-
 ## Team Discord
 https://discord.gg/9rqdFRHf
 
