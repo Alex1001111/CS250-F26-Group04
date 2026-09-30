@@ -17,6 +17,10 @@ Software System: pending...
 
 # Team Contract
 
+## Team Discord
+https://discord.gg/9rqdFRHf
+
+
 ## Ground rules
 
 1. Stay organized – each person responsible for their own task
