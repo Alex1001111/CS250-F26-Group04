@@ -11,9 +11,10 @@ Group Number: 4
 - Uriel
 - Stephen
 
-## Selected Software System
+## Selected Software System 
 
-Software System: pending...
+[MLDS-1.pdf](https://github.com/user-attachments/files/32837433/MLDS-1.pdf)
+
 
 ## Team Discord
 https://discord.gg/9rqdFRHf
