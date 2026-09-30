@@ -3,17 +3,18 @@
 ## Group Number
 Group Number: 4
 
-## Team Members
+## Team Members/Roles
 - Safa 
-- Blade
-- Uriel
-- Stephen
-- Alex
+-
+
 
 ## Selected Software System
 Software System: pending...
 
 ## Team Contract
+- Communicate on Discord about project completion
+- Zoom meeting morning of the when the assignment open, 11am 
+
 
 
 
