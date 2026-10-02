@@ -3,6 +3,7 @@
 # Software Design Specification
 
 ## Team Members:
+
 - Stephen
 - Alex
 - Uriel
@@ -10,9 +11,13 @@
 - Safa
 
 ## System Description
+
 The Mountain Lion Detection System will help the San Diego County Parks and Recreation Department detect and monitor possible mountain lion activity in parks. The system will use noise sensors across areas of up to 5 square miles to detect programmed animal sounds and send alerts to a ranger station computer. Alerts will include the sound type, strength, and location, allowing authorized park rangers and employees to review and classify them as definite, suspected, or false. The system will also store detection data, provide maps and reports, and use a simple interface that requires minimal training. Access will be limited to authorized users, and the system will be designed to support different parks, sensor locations, and animal noises.
 
 ## Software Architecture Overview
+
+Architectural Diagram
+![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/AWS.png)
 
 UML
 ![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/UML-PROJECT1.png)
