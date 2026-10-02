@@ -1,8 +1,8 @@
 # Mountain Lion Detection System
 
-# Software Design Specification
+## Software Design Specification
 
-## Team Members:
+### Team Members:
 
 - Stephen
 - Alex
@@ -17,7 +17,7 @@ The Mountain Lion Detection System will help the San Diego County Parks and Recr
 ## Software Architecture Overview
 
 Architectural Diagram
-![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/AWS.png) 
+![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/AWS.png)
 
 The workflow starts when a location with sensors in San Diego County Parks and Recreation detects something and sends an alert. A ranger then checks the alert. If the alert is false, it is marked as an invalid report. If it is true, the system stores a detailed record.
 
@@ -35,102 +35,115 @@ UML
 
 UML class description
 
-Park Management system: This will be the start of the whole system. It will contain the National parks information such as name, location, and area covered. This system is designed so that it can be set up to different national parts around the country allowing versatility. 
+Park Management system: This will be the start of the whole system. It will contain the National parks information such as name, location, and area covered. This system is designed so that it can be set up to different national parts around the country allowing versatility.
 Attributes
+
 1. parkName: string - This will be the name of the national park and can be changed to suit whatever location
-2.parkLocation: double - This will be the location of the park/park number that was assigned to it
-3.areaCovered: double - This will include the square feet that the Mountain Lion Detection System will cover
+   2.parkLocation: double - This will be the location of the park/park number that was assigned to it
+   3.areaCovered: double - This will include the square feet that the Mountain Lion Detection System will cover
 
 Functions
+
 1. getParkName() - This function gets the park name
-2.getParkLocation() - this function gets the park location 
-3.getAreaCovered() - this function gets the area covered by the MLDS
+   2.getParkLocation() - this function gets the park location
+   3.getAreaCovered() - this function gets the area covered by the MLDS
 
 Ranger Station: This is where the Park Management System class would then send you to after getting the correct information. This will connect with the controlling computer that is at the main ranger station for the National park that it is at. Here the ranger will be able to login then use this to access all the system setup for their designated park.
 Attributes
-1. rangerID: double - This will contain the Id of the ranger currently accessing the system
-2. rangerUserName: string  - This will contain their username used to log in while active
-3. rangerPassword: string - This will contain their password used to login while active
-4. rangerStationNum: int - This will contain the assigned number to the ranger station in case of multiple stations 
-Functions
-1. Login() - This function will allow the ranger to enter their information and verify that they are authorized.
-2. accessData()- This function is what will be used in order to access the AlertDatabase.
-3. accessMap()- This function will allow the ranger to access a map of the national park with live real time alerts.
-4. toggleAlarm() - This function is what will be used to toggle the alarm off. As specified, the alarm will stay active until a ranger toggles it off themself. 
-5. classifyAlert() - This function will be what the ranger will use in order to classify the alert as either true, false, or uncertain.
-6. getActiveAlerts() - this function will allow the ranger to look at all current alert reports so that they can handle it accordingly. 
 
-Alarm: This class will only be used for the Alarm itself. It will be connected to both the Ranger Station and Noise Detection Nodes. The Ranger Station class will be able to toggle off the alarm as specified and the alarm will be triggered once the conditions from Noise Detection Nodes have been met. 
+1. rangerID: double - This will contain the Id of the ranger currently accessing the system
+2. rangerUserName: string - This will contain their username used to log in while active
+3. rangerPassword: string - This will contain their password used to login while active
+4. rangerStationNum: int - This will contain the assigned number to the ranger station in case of multiple stations
+   Functions
+5. Login() - This function will allow the ranger to enter their information and verify that they are authorized.
+6. accessData()- This function is what will be used in order to access the AlertDatabase.
+7. accessMap()- This function will allow the ranger to access a map of the national park with live real time alerts.
+8. toggleAlarm() - This function is what will be used to toggle the alarm off. As specified, the alarm will stay active until a ranger toggles it off themself.
+9. classifyAlert() - This function will be what the ranger will use in order to classify the alert as either true, false, or uncertain.
+10. getActiveAlerts() - this function will allow the ranger to look at all current alert reports so that they can handle it accordingly.
+
+Alarm: This class will only be used for the Alarm itself. It will be connected to both the Ranger Station and Noise Detection Nodes. The Ranger Station class will be able to toggle off the alarm as specified and the alarm will be triggered once the conditions from Noise Detection Nodes have been met.
 Attributes
+
 1. alarmOn: bool - This will contain a boolean function which will be true if the alarm is still active and has not been turned off. False if there is no current alarm active or if it was turned off
-Functions
-1. setStationAlarmOn() - This function is what will be triggered by the Noise Detection Nodes once the right conditions have been met. In this case, when a mountain lion sound has been detected. 
-2. setStationAlarmOff() - This function is what will be used when the function toggleAlarm() in Ranger Station is triggered to be turned off. 
+   Functions
+1. setStationAlarmOn() - This function is what will be triggered by the Noise Detection Nodes once the right conditions have been met. In this case, when a mountain lion sound has been detected.
+1. setStationAlarmOff() - This function is what will be used when the function toggleAlarm() in Ranger Station is triggered to be turned off.
 
 Classification/Report: This class will be used in order to classify each alert. As per specifications each alert can be classified as True, False, or maybe. Report will then be sent back to the ranger station where it will be shuffled into the Alert Database.
 Attributes
+
 1.  alertClassification: string - This will contain a string which will have true, false, or maybe.
 
 Functions
+
 1.  setAlertTrue()- This function will set the alert classification as True.
 2.  setAlertFalse()- This function will set the alert classification as False
 3.  setAlertMaybe()- This function will set the alert classification as Maybe
 4.  sendAlertStatus()- This function will send the alert status confirmed by ranger back to Ranger station which will then send it to AlertDatabase.
 
-AlertDatabase: This will be the database that will hold all the alerts, their dates, their locations. It will also be used to compile the alert information after 30 days but before a year. This class will be connected with Ranger Station so that they can access past alerts and also send the new classified alerts. It will also connect with Noise Detection Nodes so that the nodes themselves can directly send the information to the data base which can then be used by Ranger station to classify or get old reports. 
+AlertDatabase: This will be the database that will hold all the alerts, their dates, their locations. It will also be used to compile the alert information after 30 days but before a year. This class will be connected with Ranger Station so that they can access past alerts and also send the new classified alerts. It will also connect with Noise Detection Nodes so that the nodes themselves can directly send the information to the data base which can then be used by Ranger station to classify or get old reports.
 Attributes
-1. alertSummeryYear: string- This will contain the past alerts for after 30 days but before the 1 year mark.
-2. activateAlarm: bool- This will also keep track of if there is an active alert so that the ranger can classify and access the most recent alerts as opposed to searching through the whole list. 
-3. sentAlerts: int- This will keep track of the amount of current alerts so that the ranger using the system can find out if it is just one alert or multiple at the same time. 
-4. alarmStatus:bool- Like activeAlarm:bool it is used to keep track of if there is an active alert but this is just true or false as opposed to the int of the previous one which keeps track of the number of active alerts.
-5. probabilityofMountainLion: string 4-  this will be where the classification report is stored. It will contain whatever the ranger has classified said alert as. 
 
+1. alertSummeryYear: string- This will contain the past alerts for after 30 days but before the 1 year mark.
+2. activateAlarm: bool- This will also keep track of if there is an active alert so that the ranger can classify and access the most recent alerts as opposed to searching through the whole list.
+3. sentAlerts: int- This will keep track of the amount of current alerts so that the ranger using the system can find out if it is just one alert or multiple at the same time.
+4. alarmStatus:bool- Like activeAlarm:bool it is used to keep track of if there is an active alert but this is just true or false as opposed to the int of the previous one which keeps track of the number of active alerts.
+5. probabilityofMountainLion: string 4- this will be where the classification report is stored. It will contain whatever the ranger has classified said alert as.
 
 Functions
-1. compileOldAlerts()- This function will compile the old reports from between 30 days old and one year old, as per specifications. 
-2. checkIfML()- This function will be used to check the string of probabilityOfMountainLion to check if there actually was a mountain lion or not. 
-3. getInfoDataPost30()- This function will be used to access the summary that compileOldAlerts has made. 
+
+1. compileOldAlerts()- This function will compile the old reports from between 30 days old and one year old, as per specifications.
+2. checkIfML()- This function will be used to check the string of probabilityOfMountainLion to check if there actually was a mountain lion or not.
+3. getInfoDataPost30()- This function will be used to access the summary that compileOldAlerts has made.
 
 Noise Detection Nodes: This class will be in charge of each node. They have all the required information needed to set up a net of these around the designated area of the park, find their location, and also the functions needed to filter the possible noises picked up from the nodes in order to make it less likely a false alarm is sounded. This class will be connected with AlertDatabase, so that it may update and send information to the database. Alarm, so that it can activate the alarm when needed. It will also be connected to different Animal classes which will contain the sound files which will be used to filter out every sound from activating the alarm. It's set up this way so that it is easy to add more animals to the detection system.
 Attributes
+
 1. location: string- This will contain a string which will have the location of the node. (ex. Near main trail, near waterfall, etc.)
 2. Sensor#: double- This will contain the number assigned to the node itself in order to give a more specified location/information from where the sound was recorded.
-3. AlertStatus: bool- This contains if a mountain lion or possibility of a mountain lion has been detected and activates the alert status which will then be sent to the Alarm class. 
+3. AlertStatus: bool- This contains if a mountain lion or possibility of a mountain lion has been detected and activates the alert status which will then be sent to the Alarm class.
 4. mountainLionSample: mp4- this will contain a sample of the mountain lion which will be used to compare the recorded sound
-5. noiseMountainLion: bool- this will be true if the sensor picked up sound that couple possibly be a mountain lion and then trigger the alarm class which it is connected to. 
-6. noisePitch: double- This will contain the value of the noise pitch for further information and filtering. 
+5. noiseMountainLion: bool- this will be true if the sensor picked up sound that couple possibly be a mountain lion and then trigger the alarm class which it is connected to.
+6. noisePitch: double- This will contain the value of the noise pitch for further information and filtering.
 
 Functions
-1. compareNoise()- this function is what will be used in order to filter out normal noise/other animal noises from that of a mountain lion so that the alarm system is more precise. 
-2.  recordNoise()- this function is used to record the actual noises the Noise Detection Node picks up which will then use the compare noise to determine if an alarm needs to be triggered. 
-3.  getPitch()- This will collect the pitch of the noise recorded to provide better information.
-4.  getDecibles()- This function will collect the decibels for the recorded noise in order to provide better information. 
+
+1. compareNoise()- this function is what will be used in order to filter out normal noise/other animal noises from that of a mountain lion so that the alarm system is more precise.
+2. recordNoise()- this function is used to record the actual noises the Noise Detection Node picks up which will then use the compare noise to determine if an alarm needs to be triggered.
+3. getPitch()- This will collect the pitch of the noise recorded to provide better information.
+4. getDecibles()- This function will collect the decibels for the recorded noise in order to provide better information.
 5. sendAlert()- This function will send the alert to both the alertDatabase, where it will be recorded and Alarm class, where it will trigger the alarm.
 
-
-NonAnimal: This class will contain normal or the most common sounds in the forest/national parks such as the wind blowing or rocks falling, people talking or anything else the park decides. This is used so that false alarms are less likely. This will be connected to only the noise detection nodes as noise detection nodes is the class that compares and decides if the alarm needs to be sounded. 
+NonAnimal: This class will contain normal or the most common sounds in the forest/national parks such as the wind blowing or rocks falling, people talking or anything else the park decides. This is used so that false alarms are less likely. This will be connected to only the noise detection nodes as noise detection nodes is the class that compares and decides if the alarm needs to be sounded.
 Attributes
-1. natureSounds: mp4- this is just an example of a mp4 file of common nature sounds so that an alert isn’t triggered for every sound. 
+
+1. natureSounds: mp4- this is just an example of a mp4 file of common nature sounds so that an alert isn’t triggered for every sound.
 
 Functions
+
 1. isNatureSound()- this function will check if the sound recorded by the node is close enough to the natureSounds mp4 and if so then will let the Node know not to sound the alarm.
 
-OtherAnimals: This class can be used and multiplied depending on what other animals the park and rangers want to trigger the system. Currently the system only triggers for mountain lion sounds but this allows easy growth and implementation of other animals. 
+OtherAnimals: This class can be used and multiplied depending on what other animals the park and rangers want to trigger the system. Currently the system only triggers for mountain lion sounds but this allows easy growth and implementation of other animals.
 Attributes
-1. otherAnimalSounds: file- example file for other animals will be contained in here. 
+
+1. otherAnimalSounds: file- example file for other animals will be contained in here.
 
 Functions
-1. isOtherAnimal()- This function will check if the sound recorded is the “otheranimal” that it is set to detect. Will send an alert if yes. 
-2. isntOtherAnimal()- This function will let the node know that it is not cause for alarm. 
 
-MountainLion: This is where the information for the mountain lion class will be stored. This will be the trigger point for the whole system. With the sample of the mountain lion sounds being contained in this file this is what the nodes will compare the recorded sounds to then decide if the alarm needs to be triggered or not based on how similar they are. 
+1. isOtherAnimal()- This function will check if the sound recorded is the “otheranimal” that it is set to detect. Will send an alert if yes.
+2. isntOtherAnimal()- This function will let the node know that it is not cause for alarm.
+
+MountainLion: This is where the information for the mountain lion class will be stored. This will be the trigger point for the whole system. With the sample of the mountain lion sounds being contained in this file this is what the nodes will compare the recorded sounds to then decide if the alarm needs to be triggered or not based on how similar they are.
 Attributes
-1.  MountainLionMP4: MP4- This file will contain a sample of the mountain lion noises which will be used to compare the recorded noises. 
+
+1.  MountainLionMP4: MP4- This file will contain a sample of the mountain lion noises which will be used to compare the recorded noises.
 
 Functions
-1. isMountainLion()- This Function will let the node know if the sound is indeed a mountain lion or likely a mountain lion. 
-2. isntMountainLion()- This function will let the node know that what it recorded was not a mountain lion. 
 
+1. isMountainLion()- This Function will let the node know if the sound is indeed a mountain lion or likely a mountain lion.
+2. isntMountainLion()- This function will let the node know that what it recorded was not a mountain lion.
 
 ## Development of Plan and Timeline
 
