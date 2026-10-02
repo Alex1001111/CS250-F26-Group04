@@ -6,6 +6,9 @@
 
 ## Software Architecture Overview
 
+UML
+![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/UML-PROJECT1.png)
+
 ## Development of Plan and Timeline
 
 We will divide the project into two parts, frontend and backend development. And split the work evenly depending on experience. We will separate the work into roles, but that doesn’t mean developers are stuck in only one role, it just means someone is responsible for tracking progress end to end.
