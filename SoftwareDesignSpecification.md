@@ -17,7 +17,18 @@ The Mountain Lion Detection System will help the San Diego County Parks and Recr
 ## Software Architecture Overview
 
 Architectural Diagram
-![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/AWS.png)
+![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/AWS.png) 
+
+The workflow starts when a location with sensors in San Diego County Parks and Recreation detects something and sends an alert. A ranger then checks the alert. If the alert is false, it is marked as an invalid report. If it is true, the system stores a detailed record.
+
+After a valid alert is stored, the system checks its age. If the alert is less than 30 days old, it remains as a detailed alert. If it reaches 30 days old, it is converted into a summary record. The system later checks whether that summary is one year old. If not, the summary is kept; if it is one year old, it is archived.
+
+At the same time, a valid alert can sound an alarm at the ranger station. The ranger reviews the alert and can shut off the alarm. The system then checks whether the alert has the same sound and same location as another alert. If it does, the alarm can be turned off; if not, the alert continues through the review process.
+
+The ranger then classifies the alert as True, Maybe, or False. The classification is saved together with the Ranger ID. These saved alerts become available for reports.
+The reporting section allows the system to organize the stored information in several ways, including detection by date and classification, detection by sensor location, a map of the park and surrounding two-mile area, and classification by ranger.
+
+In other words: Sensor detects event → alert is sent → ranger checks it → valid alerts are stored → alarm is reviewed → ranger classifies the alert → alert is saved → reports are generated → old records are summarized and eventually archived.
 
 UML
 ![Alt text](https://caring-vegan.s3.us-west-2.amazonaws.com/UML-PROJECT1.png)
