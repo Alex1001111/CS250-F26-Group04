@@ -14,7 +14,7 @@ We will divide the project into two parts, frontend and backend development. And
 
 - Project Manager: Safa
 - Systems Architecture Developer: Uriel
-- Backend Developer: Blade
+- Backend Developer: Blade Mata
 - Frontend Developer: Stephen
 - Test Developer: Alex
 
