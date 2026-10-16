@@ -10,6 +10,7 @@ Group Number: 4
 - Blade
 - Uriel
 - Stephen
+- Alex
 
 ## Selected Software System 
 
