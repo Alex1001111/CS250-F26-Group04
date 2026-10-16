@@ -200,7 +200,8 @@ Functions
           PRINT "PASS: Summary was created correctly"
       END IF
 
-END TEST```
+END TEST
+```
 
 - Integration test
 
@@ -245,7 +246,7 @@ END TEST```
       END FOR
 
 END FUNCTION
-````
+```
 
 - Systems Test
 
@@ -330,3 +331,4 @@ The first week consists of developing a plan, confirming roles, requirements, an
 In the second week we begin splitting the tasking. Frontend will create the UI for park rangers to use and keep track of alerts. The Backend will begin creating a database for potential sightings and reports as well as create a machine learning algorithm to train to detect mountain lions. Then, the test developers will create tests to make sure we are able to run the app smoothly. Meanwhile the systems architect will create a pipeline for changes and testing to be automated.
 
 In the Third and Fourth week’s the frontend and backend will begin to merge. The Project Manager will be responsible for keeping track of everyone making progress evenly.
+````
