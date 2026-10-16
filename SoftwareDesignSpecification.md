@@ -161,7 +161,109 @@ Functions
 
 ### Database Search (Read)
 
-- Stephen
+- We need to verify getInfoDataPost30() works as intended.
+We will use these tests to verify that the AlertDatabase can retrieve summarized alerts and that rangers can access this information through the Ranger Station.
+
+Unit Test
+
+TEST getInfoDataPost30
+
+
+    AlertDatabase.alertSummeryYear = "True - Near main trail"
+
+
+    results = AlertDatabase.getInfoDataPost30()
+
+
+    IF results IS EMPTY THEN
+        PRINT "FAIL: No summarized alerts were retrieved"
+        RETURN
+    END IF
+
+
+    IF results DOES NOT CONTAIN "True - Near main trail" THEN
+        PRINT "FAIL: Expected summary information is missing"
+        RETURN
+    END IF
+
+
+    PRINT "PASS: Summarized alert was retrieved correctly"
+
+
+END TEST
+
+
+Integration Test
+
+TEST rangerStationAccessData
+
+
+    AlertDatabase.alertSummeryYear = "True - Near main trail"
+
+
+    RangerStation.accessData()
+
+
+    results = AlertDatabase.getInfoDataPost30()
+
+
+    IF results IS EMPTY THEN
+        PRINT "FAIL: Ranger Station could not access alert summaries"
+        RETURN
+    END IF
+
+
+    IF results DOES NOT CONTAIN "True - Near main trail" THEN
+        PRINT "FAIL: Expected summary was not retrieved"
+        RETURN
+    END IF
+
+
+    PRINT "PASS: Ranger Station accessed the alert summary"
+
+
+END TEST
+
+
+System Test
+
+TEST rangerAccessStoredAlerts
+
+
+    AlertDatabase.alertSummeryYear = "True - Near main trail"
+
+
+    RangerStation.Login()
+
+
+    IF ranger login fails THEN
+        PRINT "FAIL: Ranger could not log in"
+        RETURN
+    END IF
+
+
+    RangerStation.accessData()
+
+
+    results = AlertDatabase.getInfoDataPost30()
+
+
+    IF results IS EMPTY THEN
+        PRINT "FAIL: Ranger could not view stored alert summaries"
+        RETURN
+    END IF
+
+
+    IF results DOES NOT CONTAIN "True - Near main trail" THEN
+        PRINT "FAIL: Expected summary was not displayed"
+        RETURN
+    END IF
+
+
+    PRINT "PASS: Ranger logged in and accessed the alert summary"
+
+
+END TEST
 
 ### Automated Updates (Update, Delete)
 
