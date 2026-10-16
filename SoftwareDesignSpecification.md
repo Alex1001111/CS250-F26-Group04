@@ -155,8 +155,6 @@ Functions
 
 - Safa
 
-## Database - CRUD Testing (Create, Read, Update, Delete)
-
 ### Make a Report (Create)
 
 - Blade
@@ -167,7 +165,143 @@ Functions
 
 ### Automated Updates (Update, Delete)
 
-- Uriel
+- We need to verify compileOldAlerts() worked as intended.
+- We will use these tests to verify the workflow is updating alerts automaticly.
+
+- Unit Test
+  TEST createSummary
+
+      alert = {
+          id: 101,
+          type: "Alert",
+          classification: "True",
+          location: "Main Trail"
+      }
+
+      summary = createSummary(alert)
+
+      IF summary IS EMPTY THEN
+          PRINT "FAIL: No summary was created"
+
+      ELSE IF summary.type != "Summary" THEN
+          PRINT "FAIL: Incorrect record type"
+
+      ELSE IF summary.sourceAlertId != alert.id THEN
+          PRINT "FAIL: Summary references the wrong alert"
+
+      ELSE IF summary.classification != alert.classification
+           OR summary.location != alert.location THEN
+
+          PRINT "FAIL: Summary information is incorrect"
+
+      ELSE
+          PRINT "PASS: Summary was created correctly"
+      END IF
+
+END TEST
+
+- Integration test
+  TEST updateRecords(currentDate)
+
+      summaryCutoff = currentDate - 30 DAYS
+      archiveCutoff = currentDate - 1 CALENDAR YEAR
+
+      FOR EACH record IN getActiveAlerts()
+
+          IF record.originalReceivedDate < archiveCutoff THEN
+
+              IF record.type == "Alert" THEN
+                  archiveData = createSummary(record)
+              ELSE
+                  archiveData = copy(record)
+              END IF
+
+              archiveData.originalReceivedDate = record.originalReceivedDate
+
+              IF saveToArchive(archiveData) == SUCCESS THEN
+                  removeFromActiveStorage(record)
+              ELSE
+                  logError("Archive update failed", record.id)
+              END IF
+
+          ELSE IF record.type == "Alert"
+              AND record.originalReceivedDate < summaryCutoff THEN
+
+              summary = createSummary(record)
+              summary.originalReceivedDate = record.originalReceivedDate
+
+              IF saveSummary(summary) == SUCCESS THEN
+                  removeOriginalAlert(record)
+              ELSE
+                  logError("Summary update failed", record.id)
+              END IF
+
+          END IF
+
+      END FOR
+
+END FUNCTION
+
+- Systems Test
+  TEST automaticAlertLifecycle
+
+      startDate = October 15, 2025
+
+      START the complete application with empty test storage
+      SET application test clock TO startDate
+
+      SEND a simulated mountain lion alert through the sensor input
+
+      USING the ranger interface:
+          Find the alert
+          Classify it as "True"
+          Save the classification
+
+      RECORD alertId, originalReceivedDate, classification, location
+
+      IF the detailed alert is missing from the ranger interface THEN
+          PRINT "FAIL: Initial alert was not displayed"
+          RETURN
+      END IF
+
+      ADVANCE application test clock TO startDate + 31 DAYS
+      WAIT FOR the next scheduled daily update to finish
+
+      IF no summary exists for alertId
+         OR the original detailed alert remains in active storage THEN
+
+          PRINT "FAIL: Alert was not converted to a summary"
+          RETURN
+      END IF
+
+      IF summary classification, location, or originalReceivedDate
+         differs from the recorded information THEN
+
+          PRINT "FAIL: Information changed during summarization"
+          RETURN
+      END IF
+
+      ADVANCE application test clock TO
+              startDate + 1 CALENDAR YEAR + 1 DAY
+      WAIT FOR the next scheduled daily update to finish
+
+      IF no archived record exists for alertId
+         OR its summary remains in active summary storage THEN
+
+          PRINT "FAIL: Summary was not archived correctly"
+          RETURN
+      END IF
+
+      IF archived classification, location, or originalReceivedDate
+         differs from the recorded information THEN
+
+          PRINT "FAIL: Information changed during archiving"
+          RETURN
+      END IF
+
+      PRINT "PASS: Automatic update workflow completed correctly"
+
+END TEST
 
 ## Development of Plan and Timeline
 
