@@ -145,6 +145,30 @@ Functions
 1. isMountainLion()- This Function will let the node know if the sound is indeed a mountain lion or likely a mountain lion.
 2. isntMountainLion()- This function will let the node know that what it recorded was not a mountain lion.
 
+## Testing
+
+### Sensor Testing - (Equipment)
+
+- Alex
+
+### Noise Related Function Testing - (Correctly Detect Mountain lion)
+
+- Safa
+
+## Database - CRUD Testing (Create, Read, Update, Delete)
+
+### Make a Report (Create)
+
+- Blade
+
+### Database Search (Read)
+
+- Stephen
+
+### Automated Updates (Update, Delete)
+
+- Uriel
+
 ## Development of Plan and Timeline
 
 We will divide the project into two parts, frontend and backend development. And split the work evenly depending on experience. We will separate the work into roles, but that doesn’t mean developers are stuck in only one role, it just means someone is responsible for tracking progress end to end.
