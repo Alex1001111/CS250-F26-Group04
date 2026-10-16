@@ -151,12 +151,73 @@ Functions
 
 - Alex
 
-### Noise Related Function Testing - (Correctly Detect Mountain lion)
+### Noise Related Function Testing - (Correctly Detect Mountain lion) – Safa
 
-- Safa
+**Feature:** Correctly identifying mountain lion sounds and distinguishing them from other animal noises.
 
-### Make a Report (Create)
+#### 1. Unit Testing
 
+**What we're testing:** Whether the `isMountainLion()` and `isntMountainLion()` functions correctly identify mountain lion sounds and other animal noises.
+
+**Test Case 1: Mountain Lion Sound**
+- **Test Input:** A recorded mountain lion sound.
+- **Expected Output:** The function identifies the sound as a mountain lion.
+- **Pass:** The function correctly identifies the mountain lion sound.
+- **Fail:** The function incorrectly identifies the sound.
+
+**Test Case 2: Other Animal Sound**
+- **Test Input:** A recorded dog barking.
+- **Expected Output:** The function identifies that the sound is not from a mountain lion.
+- **Pass:** The function correctly rejects the dog barking sound.
+- **Fail:** The function incorrectly identifies the dog barking as a mountain lion.
+
+#### 2. Integration Testing
+
+**What we're testing:** Whether the sound sensor and noise detection functions work together correctly.
+
+**Test Case 1: Mountain Lion Detection**
+- **Test Input:** The sensor receives a recorded mountain lion sound and sends the data to the detection function.
+- **Expected Output:** The function receives the sound data and correctly identifies it as a mountain lion.
+- **Pass:** The sensor and function communicate correctly and identify the sound.
+- **Fail:** The data is not transferred correctly or the function fails to identify the sound.
+
+**Test Case 2: Other Animal Detection**
+- **Test Input:** The sensor receives a recorded dog barking.
+- **Expected Output:** The detection function identifies that the sound does not belong to a mountain lion.
+- **Pass:** The sensor and function correctly process the sound without identifying a mountain lion.
+- **Fail:** The system incorrectly identifies the dog barking as a mountain lion.
+
+#### 3. System Testing
+
+**What we're testing:** Whether the entire system correctly detects mountain lion sounds and responds appropriately.
+
+**Test Case 1: Mountain Lion Present**
+- **Test Input:** A recorded mountain lion sound is played near the sensor.
+- **Expected Output:** The system detects the sound, identifies it as a mountain lion, and activates the appropriate response.
+- **Pass:** The system correctly identifies the sound and activates the expected response.
+- **Fail:** The system fails to detect the sound or does not activate the appropriate response.
+
+**Test Case 2: No Mountain Lion Present**
+- **Test Input:** A recorded dog barking is played near the sensor.
+- **Expected Output:** The system identifies that the sound is not from a mountain lion and does not activate a mountain lion alert.
+- **Pass:** The system correctly rejects the sound without triggering a false alert.
+- **Fail:** The system incorrectly identifies the sound as a mountain lion and triggers an alert.
+
+#### 4. Test Coverage
+
+These tests verify that the system correctly identifies mountain lion sounds at three different testing levels.
+
+- **Unit Testing:** Checks whether the individual detection functions correctly classify recorded sounds.
+- **Integration Testing:** Checks whether the sensor and detection functions communicate and work together correctly.
+- **System Testing:** Checks whether the entire system correctly detects mountain lion sounds and activates the expected response.
+
+We selected both mountain lion recordings and dog barking recordings to test whether the system can distinguish between different animal sounds. This helps identify two possible failures: failing to recognize a mountain lion and incorrectly identifying another animal as a mountain lion.
+
+By testing these scenarios at all three levels, we can verify the accuracy of the noise detection feature and the communication between different parts of the system.
+
+
+
+**Make a report(create)
 - Blade
 
 ### Database Search (Read)
