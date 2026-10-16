@@ -169,6 +169,8 @@ Functions
 - We will use these tests to verify the workflow is updating alerts automaticly.
 
 - Unit Test
+
+````bash
   TEST createSummary
 
       alert = {
@@ -198,9 +200,11 @@ Functions
           PRINT "PASS: Summary was created correctly"
       END IF
 
-END TEST
+END TEST```
 
 - Integration test
+
+```bash
   TEST updateRecords(currentDate)
 
       summaryCutoff = currentDate - 30 DAYS
@@ -241,9 +245,12 @@ END TEST
       END FOR
 
 END FUNCTION
+````
 
 - Systems Test
-  TEST automaticAlertLifecycle
+
+```bash
+TEST automaticAlertLifecycle
 
       startDate = October 15, 2025
 
@@ -302,6 +309,7 @@ END FUNCTION
       PRINT "PASS: Automatic update workflow completed correctly"
 
 END TEST
+```
 
 ## Development of Plan and Timeline
 
